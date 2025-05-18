@@ -1,0 +1,47 @@
+.send_email_page{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.send_email_block{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+.instruction{
+    font-family: "Special Gothic", sans-serif;
+    text-align: center;
+    width: 330px;
+    color: rgba(33, 37, 41, 1);
+    font-weight: 400;
+    font-size: 16px;
+    margin-top: 5px;
+
+}
+
+
+.text{
+    font-weight: 600;
+    font-size: 14px;
+    font-family: "Special Gothic", sans-serif;
+    margin-bottom: 1rem;
+    text-align: end;
+    color: rgba(33, 37, 41, 0.6);
+}
+
+.span{
+    font-weight: 500;
+    font-size: 14px;
+    text-decoration: underline;
+    cursor: pointer;
+    font-family: "Special Gothic", sans-serif;
+    margin-bottom: 1rem;
+    color: rgba(49, 132, 253, 1);
+    text-align: end;
+}

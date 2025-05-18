@@ -1,0 +1,71 @@
+.table-container {
+    overflow-x: auto;
+    padding: 16px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+  }
+  
+  .warehouse-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: sans-serif;
+    font-size: 14px;
+  }
+  
+  .warehouse-table th,
+  .warehouse-table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+    vertical-align: top;
+  }
+  
+  .warehouse-table thead {
+    background-color: #f0f0f0;
+  }
+  
+  .section-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  
+  .section-badge {
+    background-color: #e0f7fa;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 13px;
+    display: inline-block;
+  }
+  
+  .icon-button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 0 4px;
+  }
+  
+  .icon-button:hover {
+    color: #007bff;
+  }
+  .name_input_con{
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .reg_input {
+    border-radius: 10px;
+    width: 15vw;
+    height: 38px;
+    border: 2px solid rgba(222, 226, 230, 1);
+    transition: 0.2s;
+    outline: none;
+    padding-left: 10px;
+    box-sizing: border-box;
+    margin-top: 20px;
+    transition: 0.2s;
+
+}
+  

@@ -1,0 +1,128 @@
+.login_page {
+    display: flex;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.login_form {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.login_form h2{
+    font-family: "Special Gothic", sans-serif;
+    font-weight: 700;
+    font-size: 24px;
+    color: rgba(108, 117, 125, 1);
+    text-align: center;
+    margin-bottom: 0;
+}
+
+.input_login {
+    border-radius: 10px;
+    width: 360px;
+    height: 38px;
+    border: 2px solid rgba(222, 226, 230, 1);
+    transition: 0.2s;
+    outline: none;
+    padding-left: 10px;
+    box-sizing: border-box;
+    margin-top: 20px;
+    transition: 0.2s;
+
+}
+
+.login_form button {
+    padding: 0.5rem;
+    font-size: 1rem;
+    background: rgba(13, 110, 253, 1);
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: 0.2s;
+}
+
+.login_form .error {
+    color: red;
+    margin-top: 0.5rem;
+}
+
+.login_form .success {
+    color: green;
+    margin-top: 0.5rem;
+}
+
+.forgot_password{
+    font-weight: 400;
+    font-size: 14px;
+    text-decoration: underline;
+    cursor: pointer;
+    font-family: "Special Gothic", sans-serif;
+    margin-bottom: 1rem;
+    color: rgba(49, 132, 253, 1);
+    text-align: end;
+}
+.input_login:focus{
+    border: 2px solid rgba(13, 110, 253, 1);
+}
+.reg{
+    text-align: center;
+    width: 100%;
+    font-family: "Special Gothic", sans-serif;
+    color: rgba(33, 37, 41, 0.6);
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 28px;
+    letter-spacing: 1%;
+    vertical-align: middle;
+}
+
+.reg_button{
+    font-weight: 400;
+    font-size: 14px;
+    text-decoration: underline;
+    cursor: pointer;
+    font-family: "Special Gothic", sans-serif;
+    margin-bottom: 1rem;
+    color: rgba(49, 132, 253, 1);
+    text-align: end;
+}
+
+
+.input-error {
+    border: 2px solid rgba(220, 53, 69, 1);
+    transition: 0.2s;
+    border-radius: 10px;
+    width: 360px;
+    height: 38px;
+    border: 2px solid rgba(222, 226, 230, 1);
+    transition: 0.2s;
+    outline: none;
+    padding-left: 10px;
+    box-sizing: border-box;
+    margin-top: 20px;
+    transition: 0.2s;
+}
+.password-input-wrapper {
+    position: relative;
+    width: 100%;
+  }
+  
+  .password-input-wrapper input {
+    width: 100%;
+    padding-right: 40px; /* space for the icon */
+  }
+  
+  .toggle-password {
+    user-select: none;
+    position: absolute;
+    top: 4.59vh;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 20px;
+  }

@@ -1,0 +1,51 @@
+.navbar {
+    background-color: rgba(26, 26, 26, 1);
+    color: white;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    box-sizing: border-box;
+    min-width: 10vw;
+  }
+  
+  .logo {
+    font-family: Inter;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 140%;
+    letter-spacing: -2%;
+
+  }
+  
+  .nav-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 0;
+  }
+  
+  .nav-links li {
+    color: white;
+    text-decoration: none;
+    font-family: Inter;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 140%;
+    transition: 0.2s ease-in-out;
+  }
+  .nav-links a {
+    color: white;
+    text-decoration: none;
+    font-family: Inter;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 140%;
+    transition: 0.2s ease-in-out;
+  }
+  
+  .nav-links a:hover {
+    background: rgba(49, 49, 49, 1);
+  }
+  
