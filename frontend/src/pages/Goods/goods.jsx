@@ -29,7 +29,7 @@ export default function GoodsTable() {
       .catch(err => console.error('Failed to add good:', err));
   };
 
-  return (
+return (
     <div className="goods_page">
       <Navbar />
       <div className="table-container">
@@ -38,37 +38,43 @@ export default function GoodsTable() {
           <button className='create' onClick={() => setIsModalOpen(true)}>+Додати товар</button>
         </div>
 
-        <table className="goods-table">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Назва</th>
-              <th>Код</th>
-              <th>Од. виміру</th>
-              <th>К-сть</th>
-              <th>Склад</th>
-              <th>Секція</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {goods.map((g, idx) => (
-              <tr key={idx}>
-                <td>{g?.id}</td>
-                <td>{g?.name}</td>
-                <td>{g?.code}</td>
-                <td>{g?.unit}</td>
-                <td>{g?.quantity}</td>
-                <td>{g?.warehouse_name || "-"}</td>
-                <td>{g?.section}</td>
-                <td>
-                  <button className="icon-button">☰</button>
-                  <button className="icon-button">✏️</button>
-                </td>
+        {goods.length === 0 ? (
+          <div className="no-goods-message">
+            Немає товару
+          </div>
+        ) : (
+          <table className="goods-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Назва</th>
+                <th>Код</th>
+                <th>Од. виміру</th>
+                <th>К-сть</th>
+                <th>Склад</th>
+                <th>Секція</th>
+                <th></th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {goods.map((g, idx) => (
+                <tr key={idx}>
+                  <td>{g?.id}</td>
+                  <td>{g?.name}</td>
+                  <td>{g?.code}</td>
+                  <td>{g?.unit}</td>
+                  <td>{g?.quantity}</td>
+                  <td>{g?.warehouse_name || "-"}</td>
+                  <td>{g?.section}</td>
+                  <td>
+                    <button className="icon-button">☰</button>
+                    <button className="icon-button">✏️</button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
 
         <GoodsModal
           isOpen={isModalOpen}

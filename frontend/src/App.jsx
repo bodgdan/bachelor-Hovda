@@ -8,6 +8,7 @@ import Registration from './pages/Registration/registration'
 import MainMenu from './pages/MainMenu/mainMenu'
 import WarehouseTable from './pages/Warehouses/warehouses'
 import GoodsTable from './pages/Goods/goods'
+import ClientTable from './pages/CLients/client'
 
 function App() {
   return (
@@ -22,6 +23,8 @@ function App() {
         <Route path="/warehouses" element={<WarehouseTable />} />
         <Route path="/main-menu" element={<MainMenu />} />
         <Route path="/goods" element={<GoodsTable />} />
+        <Route path="/clients" element={<ClientTable />} />
+
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
     </Router>

@@ -3,6 +3,8 @@ import { Link, useNavigate  } from 'react-router-dom';
 import './navbar.css';
 import axios from 'axios';
 
+import Logo from "../../assets/Logo.svg"
+
 const Navbar = () => {
   const navigate = useNavigate();
   const handleLogout = async () => {
@@ -15,11 +17,13 @@ const Navbar = () => {
   };
   return (
     <nav className="navbar">
-      <h2 className="logo">MyApp</h2>
+      <img src={Logo} alt="" />
       <ul className="nav-links">
         <li><Link to="/main-menu">Головна</Link></li>
         <li><Link to="/warehouses">Склади</Link></li>
         <li><Link to="/goods">Товари</Link></li>
+        <li><Link to="/clients">Клієнти</Link></li>
+
 
         <li onClick={handleLogout} style={{ cursor: 'pointer' }}>Вийти</li>
       </ul>

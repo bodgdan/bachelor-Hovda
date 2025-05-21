@@ -1,0 +1,81 @@
+.main-menu {
+  display: flex;
+  height: 100vh;
+  font-family: Inter;
+}
+
+.main-menu-container {
+  flex: 1;
+  padding: 2rem;
+  background-color: #f4f4f4;
+}
+
+.main-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+}
+
+.stats-row {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  background: white;
+  border-radius: 10px;
+  padding: 1.5rem;
+  width: 200px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.stat-value {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.stat-more {
+  color: #555;
+  font-size: 0.9rem;
+  text-align: right;
+  cursor: pointer;
+}
+
+.warehouse-table {
+  background: white;
+  border-radius: 10px;
+  padding: 1.5rem;
+  max-width: 400px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.table-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.table-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.table-row {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.5rem;
+}
+
+.warehouse-name {
+  font-size: 1rem;
+}
+
+.warehouse-qty {
+  font-size: 1rem;
+  font-weight: bold;
+}

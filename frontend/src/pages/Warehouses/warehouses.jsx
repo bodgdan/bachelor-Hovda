@@ -41,7 +41,7 @@ export default function WarehouseTable() {
                     <button className='create' onClick={() => setIsModalOpen(true)}>+Створити склад</button>
                 </div>
 
-                <table className="warehouse-table">
+                <table className="warehouses-table">
                     <thead>
                         <tr>
                             <th>ID</th>

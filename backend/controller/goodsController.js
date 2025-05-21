@@ -2,55 +2,96 @@ const db = require("../db");
 const jwt = require("jsonwebtoken");
 
 class GoodsController {
-  verifyToken(req, res, next) {
-    const token = req.cookies.token;
+  // Middleware to verify JWT from cookies
+  async verifyToken(req, res, next) {
+    try {
+      const token = req.cookies.token;
 
-    if (!token) {
-      return res.status(403).json({ message: "No token provided" });
-    }
-
-    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
-      if (err) {
-        return res.status(401).json({ message: "Unauthorized" });
+      if (!token) {
+        return res.status(403).json({ message: "No token provided" });
       }
-      req.userId = decoded.id;
-      next();
-    });
+
+      jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+        if (err) {
+          return res.status(401).json({ message: "Unauthorized" });
+        }
+        req.userId = decoded.id;
+        next();
+      });
+    } catch (err) {
+      console.error("Token verification error:", err);
+      return res.status(500).json({ message: "Server error" });
+    }
   }
 
+  // Add a new good for the authenticated user
   async addGood(req, res) {
     try {
-      const { name, code, unit, quantity, arrival_date, storage_term, company, warehouse_id, section } = req.body;
+      const {
+        name,
+        code,
+        unit,
+        quantity,
+        arrival_date,
+        storage_term,
+        company,
+        warehouse_id,
+        section,
+      } = req.body;
 
-      if (!name || !code || !unit || !quantity || !arrival_date || !storage_term || !company || !warehouse_id || !section) {
+      if (
+        !name ||
+        !code ||
+        !unit ||
+        !quantity ||
+        !arrival_date ||
+        !storage_term ||
+        !company ||
+        !warehouse_id ||
+        !section
+      ) {
         return res.status(400).json({ message: "All fields are required" });
       }
 
       const query = `
         INSERT INTO goods (
-          name, code, unit, quantity, arrival_date, storage_term, company, warehouse_id, section, user_id
+          name, code, unit, quantity, arrival_date,
+          storage_term, company, warehouse_id, section, user_id
         )
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING id;
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+        RETURNING id;
       `;
-      const values = [name, code, unit, quantity, arrival_date, storage_term, company, warehouse_id, section, req.userId];
+      const values = [
+        name,
+        code,
+        unit,
+        quantity,
+        arrival_date,
+        storage_term,
+        company,
+        warehouse_id,
+        section,
+        req.userId,
+      ];
 
       const result = await db.query(query, values);
 
-      if (result.rows.length > 0) {
-        return res.status(201).json({ message: "Good added successfully", goodId: result.rows[0].id });
-      } else {
-        return res.status(500).json({ message: "Failed to add good" });
-      }
+      return res.status(201).json({
+        message: "Good added successfully",
+        goodId: result.rows[0].id,
+      });
     } catch (err) {
-      console.error(err);
+      console.error("Add good error:", err);
       return res.status(500).json({ message: "Server error" });
     }
   }
 
+  // Get all goods created by the authenticated user
   async getGoodsByUser(req, res) {
     try {
       const userId = req.userId;
-  
+      console.log("Fetching goods for user ID:", userId); // Debug log
+
       const query = `
         SELECT 
           goods.id,
@@ -68,16 +109,15 @@ class GoodsController {
         WHERE goods.user_id = $1;
       `;
       const values = [userId];
-  
+
       const result = await db.query(query, values);
-  
+
       return res.status(200).json({ goods: result.rows });
     } catch (err) {
-      console.error(err);
+      console.error("Get goods error:", err);
       return res.status(500).json({ message: "Server error" });
     }
   }
-  
 }
 
 module.exports = new GoodsController();
