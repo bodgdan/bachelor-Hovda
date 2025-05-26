@@ -8,7 +8,7 @@ export default function GoodsTable() {
   const [goods, setGoods] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [warehouses, setWarehouses] = useState([]);
-  const [users, setUsers] = useState([]);
+  const [clients, setClients] = useState([]);  // renamed from users to clients for clarity
 
   useEffect(() => {
     axios.get('http://localhost:8000/api/goods', { withCredentials: true })
@@ -19,17 +19,24 @@ export default function GoodsTable() {
       .then((res) => setWarehouses(res.data || []))
       .catch(console.error);
 
+    axios.get('http://localhost:8000/api/client', { withCredentials: true })
+      .then((res) => setClients(res.data || []))
+      .catch(err => console.error('Error fetching clients:', err));
+
   }, []);
 
-  const handleAddGood = (newGood) => {
-    axios.post('http://localhost:8000/api/goods', newGood, { withCredentials: true })
-      .then(res => {
-        setGoods(prev => [...prev, res.data.good]);
-      })
-      .catch(err => console.error('Failed to add good:', err));
-  };
+const handleAddGood = async (newGood) => {
+  try {
+    await axios.post('http://localhost:8000/api/goods', newGood, { withCredentials: true });
 
-return (
+    const response = await axios.get('http://localhost:8000/api/goods', { withCredentials: true });
+    setGoods(response.data.goods);
+  } catch (err) {
+    console.error('Error in adding or fetching goods:', err);
+  }
+};
+
+  return (
     <div className="goods_page">
       <Navbar />
       <div className="table-container">
@@ -39,9 +46,7 @@ return (
         </div>
 
         {goods.length === 0 ? (
-          <div className="no-goods-message">
-            Немає товару
-          </div>
+          <div className="no-goods-message">Немає товару</div>
         ) : (
           <table className="goods-table">
             <thead>
@@ -51,6 +56,7 @@ return (
                 <th>Код</th>
                 <th>Од. виміру</th>
                 <th>К-сть</th>
+                <th>Компанія/Клієнт</th>
                 <th>Склад</th>
                 <th>Секція</th>
                 <th></th>
@@ -64,6 +70,7 @@ return (
                   <td>{g?.code}</td>
                   <td>{g?.unit}</td>
                   <td>{g?.quantity}</td>
+                  <td>{g?.client_name || "-"}</td>
                   <td>{g?.warehouse_name || "-"}</td>
                   <td>{g?.section}</td>
                   <td>
@@ -81,7 +88,7 @@ return (
           onClose={() => setIsModalOpen(false)}
           onSave={handleAddGood}
           warehouses={warehouses}
-          users={users}
+          clients={clients}
         />
       </div>
     </div>

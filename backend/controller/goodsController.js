@@ -2,25 +2,30 @@ const db = require("../db");
 const jwt = require("jsonwebtoken");
 
 class GoodsController {
-  // Middleware to verify JWT from cookies
   async verifyToken(req, res, next) {
     try {
       const token = req.cookies.token;
 
       if (!token) {
-        return res.status(403).json({ message: "No token provided" });
+        return res.status(403).json({
+          message: "No token provided"
+        });
       }
 
       jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
         if (err) {
-          return res.status(401).json({ message: "Unauthorized" });
+          return res.status(401).json({
+            message: "Unauthorized"
+          });
         }
         req.userId = decoded.id;
         next();
       });
     } catch (err) {
       console.error("Token verification error:", err);
-      return res.status(500).json({ message: "Server error" });
+      return res.status(500).json({
+        message: "Server error"
+      });
     }
   }
 
@@ -34,7 +39,7 @@ class GoodsController {
         quantity,
         arrival_date,
         storage_term,
-        company,
+        client_id,
         warehouse_id,
         section,
       } = req.body;
@@ -43,32 +48,35 @@ class GoodsController {
         !name ||
         !code ||
         !unit ||
-        !quantity ||
+        quantity === undefined ||
         !arrival_date ||
         !storage_term ||
-        !company ||
+        !client_id ||
         !warehouse_id ||
         !section
       ) {
-        return res.status(400).json({ message: "All fields are required" });
+        return res.status(400).json({
+          message: "All fields are required"
+        });
       }
 
       const query = `
-        INSERT INTO goods (
-          name, code, unit, quantity, arrival_date,
-          storage_term, company, warehouse_id, section, user_id
-        )
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
-        RETURNING id;
-      `;
+  INSERT INTO goods (
+    name, code, unit, quantity, arrival_day,
+    storage_term, company_id, warehouse_id, section, user_id
+  )
+  VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+  RETURNING id;
+`;
+
       const values = [
         name,
         code,
         unit,
         quantity,
-        arrival_date,
+        arrival_date, // note: inserted as arrival_day in DB
         storage_term,
-        company,
+        client_id, // inserted as company_id in DB
         warehouse_id,
         section,
         req.userId,
@@ -82,15 +90,16 @@ class GoodsController {
       });
     } catch (err) {
       console.error("Add good error:", err);
-      return res.status(500).json({ message: "Server error" });
+      return res.status(500).json({
+        message: "Server error"
+      });
     }
   }
 
-  // Get all goods created by the authenticated user
   async getGoodsByUser(req, res) {
     try {
       const userId = req.userId;
-      console.log("Fetching goods for user ID:", userId); // Debug log
+      console.log("Fetching goods for user ID:", userId);
 
       const query = `
         SELECT 
@@ -99,23 +108,30 @@ class GoodsController {
           goods.code,
           goods.unit,
           goods.quantity,
-          goods.arrival_date,
+          goods.arrival_day,
           goods.storage_term,
-          goods.company,
+          goods.company_id,
+          clients.name AS client_name,
           goods.section,
           warehouse.name AS warehouse_name
         FROM goods
         LEFT JOIN warehouse ON goods.warehouse_id = warehouse.id
+        LEFT JOIN clients ON goods.company_id = clients.id
         WHERE goods.user_id = $1;
       `;
+
       const values = [userId];
 
       const result = await db.query(query, values);
 
-      return res.status(200).json({ goods: result.rows });
+      return res.status(200).json({
+        goods: result.rows
+      });
     } catch (err) {
       console.error("Get goods error:", err);
-      return res.status(500).json({ message: "Server error" });
+      return res.status(500).json({
+        message: "Server error"
+      });
     }
   }
 }
