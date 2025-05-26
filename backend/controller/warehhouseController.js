@@ -104,7 +104,6 @@ class WarehouseController {
         }
     }
 
-    // DELETE warehouse by id
     async delete(req, res) {
         const {
             id

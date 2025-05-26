@@ -13,13 +13,16 @@ export default function ClientTable() {
       .catch((err) => console.error("Error fetching clients:", err));
   }, []);
 
-  const handleAddClient = (newClient) => {
-    axios.post("http://localhost:8000/api/client", newClient, { withCredentials: true })
-      .then((res) => {
-        setClients((prev) => [...prev, newClient]); // optionally use res.data.client
-      })
-      .catch((err) => console.error("Failed to add client:", err));
+  const handleAddClient = async (newClient) => {
+    try {
+      await axios.post("http://localhost:8000/api/client", newClient, { withCredentials: true });
+      const res = await axios.get("http://localhost:8000/api/client", { withCredentials: true });
+      setClients(res.data || []);
+    } catch (error) {
+      console.error("Error in handleAddClient:", error);
+    }
   };
+
 
   return (
     <div className="client_page">

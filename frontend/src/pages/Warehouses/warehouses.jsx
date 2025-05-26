@@ -13,7 +13,9 @@ export default function WarehouseTable() {
             await axios.post('http://localhost:8000/api/warehouses', warehouseData, {
                 withCredentials: true,
               });
-            const res = await axios.get('http://localhost:8000/api/warehouses');
+            const res = await axios.get('http://localhost:8000/api/warehouses', {
+                withCredentials: true
+            });
             setWarehouses(res.data);
         } catch (err) {
             console.error('Error saving warehouse:', err);
